@@ -18,4 +18,11 @@ class Auth
             exit;
         }
     }
+
+    public static function forbidden(): void
+    {
+        http_response_code(403);
+        View::render('errors/403');
+        exit;
+    }
 }

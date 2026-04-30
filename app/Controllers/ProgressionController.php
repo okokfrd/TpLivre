@@ -28,8 +28,7 @@ class ProgressionController
             : $this->livreModel->findByIdAndUserId($livreId, $userId);
 
         if (!$livre || $pourcentage < 0 || $pourcentage > 100) {
-            header('Location: index.php?action=livres');
-            exit;
+            Auth::forbidden();
         }
 
         $existing = $this->progressionModel->findByUserAndLivre($userId, $livreId);

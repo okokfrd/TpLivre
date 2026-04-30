@@ -6,7 +6,7 @@ Cette base couvre les fonctionnalités minimales :
 - Déconnexion
 - Protection d'une page (dashboard)
 - CRUD Livres (ajouter, lister, modifier, supprimer)
-- Gestion simple des rôles (admin / membre)
+- Gestion simple des rôles (admin / modérateur / membre)
 - Système d'avis et notes (1 à 5)
 - Gestion de la progression de lecture (0 à 100)
 - Dashboard amélioré avec statistiques simples
@@ -20,6 +20,7 @@ TpLivre/
 │   ├── Controllers/
 │   │   ├── AuthController.php
 │   │   ├── AvisController.php
+│   │   ├── DocumentController.php
 │   │   ├── HomeController.php
 │   │   ├── LivreController.php
 │   │   └── ProgressionController.php
@@ -29,6 +30,7 @@ TpLivre/
 │   │   └── View.php
 │   ├── Models/
 │   │   ├── Avis.php
+│   │   ├── Document.php
 │   │   ├── Livre.php
 │   │   ├── Progression.php
 │   │   └── User.php
@@ -38,6 +40,10 @@ TpLivre/
 │       │   └── register.php
 │       ├── avis/
 │       │   └── index.php
+│       ├── documents/
+│       │   └── index.php
+│       ├── errors/
+│       │   └── 403.php
 │       ├── home/
 │       │   └── dashboard.php
 │       └── livres/
@@ -98,3 +104,14 @@ TpLivre/
 - Feuille de style unique : `public/assets/css/style.css`.
 - Formulaires centrés, boutons stylisés et menu simple sur le dashboard.
 - Aucun framework CSS utilisé (pas Bootstrap).
+
+## Rôles et accès
+- `membre` : gère ses livres, ses avis et sa progression.
+- `moderateur` : peut voir tous les livres et uploader des PDF.
+- `admin` : droits du modérateur + suppression globale des livres.
+- En cas d'action interdite : affichage d'une page 403 simple.
+
+## Documents PDF
+- Table `documents` en base (nom, chemin, taille, user_id, livre_id).
+- Upload PDF (max 5 Mo) avec vérification du type MIME.
+- Téléchargement sécurisé via contrôleur (utilisateur connecté obligatoire).

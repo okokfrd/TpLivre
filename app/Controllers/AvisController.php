@@ -28,8 +28,7 @@ class AvisController
             : $this->livreModel->findByIdAndUserId($livreId, $userId);
 
         if (!$livre) {
-            header('Location: index.php?action=livres');
-            exit;
+            Auth::forbidden();
         }
 
         $avis = $this->avisModel->getByLivreId($livreId);
@@ -57,8 +56,7 @@ class AvisController
             : $this->livreModel->findByIdAndUserId($livreId, $userId);
 
         if (!$livre) {
-            header('Location: index.php?action=livres');
-            exit;
+            Auth::forbidden();
         }
 
         if ($note < 1 || $note > 5) {

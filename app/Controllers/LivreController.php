@@ -64,8 +64,7 @@ class LivreController
         $livre = $this->livreModel->findByIdAndUserId($id, $userId);
 
         if (!$livre) {
-            header('Location: index.php?action=livres');
-            exit;
+            Auth::forbidden();
         }
 
         View::render('livres/edit', ['livre' => $livre]);
@@ -79,8 +78,7 @@ class LivreController
         $userId = (int) $_SESSION['user']['id'];
 
         if (!$this->livreModel->findByIdAndUserId($id, $userId)) {
-            header('Location: index.php?action=livres');
-            exit;
+            Auth::forbidden();
         }
 
         $data = $this->getFormData($id);

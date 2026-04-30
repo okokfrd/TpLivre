@@ -7,8 +7,11 @@ use App\Controllers\HomeController;
 use App\Controllers\LivreController;
 use App\Controllers\ProgressionController;
 use App\Controllers\AvisController;
+use App\Controllers\DocumentController;
+use App\Core\Auth;
 use App\Core\Database;
 use App\Models\Avis;
+use App\Models\Document;
 use App\Models\Livre;
 use App\Models\Progression;
 use App\Models\User;
@@ -42,6 +45,8 @@ $livreController = new LivreController($livreModel, $progressionModel);
 $progressionController = new ProgressionController($progressionModel, $livreModel);
 $avisModel = new Avis($pdo);
 $avisController = new AvisController($avisModel, $livreModel);
+$documentModel = new Document($pdo);
+$documentController = new DocumentController($documentModel, $livreModel);
 
 $action = $_GET['action'] ?? 'login';
 
@@ -114,6 +119,23 @@ switch ($action) {
 
 
 
+
+
+    case 'documents':
+        $documentController->index();
+        break;
+
+    case 'documentUpload':
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $documentController->upload();
+            break;
+        }
+        Auth::forbidden();
+        break;
+
+    case 'documentDownload':
+        $documentController->download();
+        break;
     case 'progressionSave':
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $progressionController->save();
