@@ -6,6 +6,7 @@ Cette base couvre les fonctionnalités minimales :
 - Déconnexion
 - Protection d'une page (dashboard)
 - CRUD Livres (ajouter, lister, modifier, supprimer)
+- Gestion simple des rôles (admin / membre)
 
 ## Arborescence
 
@@ -59,3 +60,9 @@ TpLivre/
 - Vérification avec `password_verify()`.
 - Requêtes préparées PDO.
 - Session régénérée à la connexion (`session_regenerate_id`).
+
+## Rôles (simple)
+- À l'inscription, le rôle créé est `membre`.
+- Le dashboard affiche le rôle de l'utilisateur connecté.
+- `membre` : gère uniquement ses propres livres.
+- `admin` : voit tous les livres et peut supprimer n'importe quel livre.

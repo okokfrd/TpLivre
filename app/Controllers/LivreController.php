@@ -18,9 +18,15 @@ class LivreController
     {
         Auth::requireLogin();
         $userId = (int) $_SESSION['user']['id'];
-        $livres = $this->livreModel->getAllByUserId($userId);
+        $role = $_SESSION['user']['role'] ?? 'membre';
 
-        View::render('livres/index', ['livres' => $livres]);
+        if ($role === 'admin') {
+            $livres = $this->livreModel->getAll();
+        } else {
+            $livres = $this->livreModel->getAllByUserId($userId);
+        }
+
+        View::render('livres/index', ['livres' => $livres, 'role' => $role]);
     }
 
     public function createForm(): void
@@ -90,8 +96,13 @@ class LivreController
 
         $id = (int) ($_POST['id'] ?? 0);
         $userId = (int) $_SESSION['user']['id'];
+        $role = $_SESSION['user']['role'] ?? 'membre';
 
-        $this->livreModel->delete($id, $userId);
+        if ($role === 'admin') {
+            $this->livreModel->deleteById($id);
+        } else {
+            $this->livreModel->delete($id, $userId);
+        }
 
         header('Location: index.php?action=livres');
         exit;

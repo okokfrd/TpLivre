@@ -5,7 +5,7 @@
     <title>Mes livres</title>
 </head>
 <body>
-    <h1>Mes livres</h1>
+    <h1><?= ($role ?? "membre") === "admin" ? "Tous les livres (admin)" : "Mes livres" ?></h1>
 
     <p>
         <a href="index.php?action=dashboard">Retour dashboard</a> |

@@ -40,7 +40,7 @@ class AuthController
         }
 
         $hash = password_hash($password, PASSWORD_DEFAULT);
-        $this->userModel->create($nom, $email, $hash);
+        $this->userModel->create($nom, $email, $hash, 'membre');
 
         header('Location: index.php?action=login');
         exit;

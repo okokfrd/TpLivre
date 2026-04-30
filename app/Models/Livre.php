@@ -12,12 +12,26 @@ class Livre
     {
     }
 
+    public function getAll(): array
+    {
+        $stmt = $this->pdo->query('SELECT * FROM livres ORDER BY id DESC');
+        return $stmt->fetchAll();
+    }
+
     public function getAllByUserId(int $userId): array
     {
         $stmt = $this->pdo->prepare('SELECT * FROM livres WHERE user_id = :user_id ORDER BY id DESC');
         $stmt->execute(['user_id' => $userId]);
 
         return $stmt->fetchAll();
+    }
+
+    public function findById(int $id): array|false
+    {
+        $stmt = $this->pdo->prepare('SELECT * FROM livres WHERE id = :id LIMIT 1');
+        $stmt->execute(['id' => $id]);
+
+        return $stmt->fetch();
     }
 
     public function findByIdAndUserId(int $id, int $userId): array|false
@@ -72,5 +86,11 @@ class Livre
             'id' => $id,
             'user_id' => $userId,
         ]);
+    }
+
+    public function deleteById(int $id): bool
+    {
+        $stmt = $this->pdo->prepare('DELETE FROM livres WHERE id = :id');
+        return $stmt->execute(['id' => $id]);
     }
 }
