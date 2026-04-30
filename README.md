@@ -5,6 +5,7 @@ Cette base couvre les fonctionnalités minimales :
 - Connexion (session PHP)
 - Déconnexion
 - Protection d'une page (dashboard)
+- CRUD Livres (ajouter, lister, modifier, supprimer)
 
 ## Arborescence
 
@@ -19,13 +20,18 @@ TpLivre/
 │   │   ├── Database.php
 │   │   └── View.php
 │   ├── Models/
+│   │   ├── Livre.php
 │   │   └── User.php
 │   └── Views/
 │       ├── auth/
 │       │   ├── login.php
 │       │   └── register.php
-│       └── home/
-│           └── dashboard.php
+│       ├── home/
+│       │   └── dashboard.php
+│       └── livres/
+│           ├── create.php
+│           ├── edit.php
+│           └── index.php
 ├── config/
 │   └── config.php
 ├── database.sql
@@ -46,6 +52,7 @@ TpLivre/
 5. Ouvrir dans le navigateur :
    - `http://localhost/TpLivre/public/index.php?action=register`
    - puis connexion : `http://localhost/TpLivre/public/index.php?action=login`
+6. Après connexion, aller dans `Gérer mes livres` pour tester le CRUD (les livres affichés sont ceux de l'utilisateur connecté).
 
 ## Notes sécurité
 - Mots de passe hashés avec `password_hash()`.

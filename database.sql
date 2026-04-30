@@ -8,3 +8,14 @@ CREATE TABLE IF NOT EXISTS users (
     password_hash VARCHAR(255) NOT NULL,
     role ENUM('admin', 'moderateur', 'membre') NOT NULL DEFAULT 'membre'
 );
+
+CREATE TABLE IF NOT EXISTS livres (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    titre VARCHAR(255) NOT NULL,
+    auteur VARCHAR(255) NOT NULL,
+    description TEXT NULL,
+    date_debut DATE NOT NULL,
+    date_fin DATE NOT NULL,
+    user_id INT UNSIGNED NOT NULL,
+    CONSTRAINT fk_livres_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);

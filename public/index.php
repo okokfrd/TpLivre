@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 use App\Controllers\AuthController;
 use App\Controllers\HomeController;
+use App\Controllers\LivreController;
 use App\Core\Database;
+use App\Models\Livre;
 use App\Models\User;
 
 session_start();
@@ -28,6 +30,8 @@ $pdo = Database::getConnection($config['db']);
 $userModel = new User($pdo);
 $authController = new AuthController($userModel);
 $homeController = new HomeController();
+$livreModel = new Livre($pdo);
+$livreController = new LivreController($livreModel);
 
 $action = $_GET['action'] ?? 'login';
 
@@ -60,6 +64,42 @@ switch ($action) {
         $homeController->dashboard();
         break;
 
+
+    case 'livres':
+        $livreController->index();
+        break;
+
+    case 'livresCreate':
+        $livreController->createForm();
+        break;
+
+    case 'livresStore':
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $livreController->store();
+            break;
+        }
+        header('Location: index.php?action=livresCreate');
+        break;
+
+    case 'livresEdit':
+        $livreController->editForm();
+        break;
+
+    case 'livresUpdate':
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $livreController->update();
+            break;
+        }
+        header('Location: index.php?action=livres');
+        break;
+
+    case 'livresDelete':
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $livreController->delete();
+            break;
+        }
+        header('Location: index.php?action=livres');
+        break;
     case 'logout':
         $authController->logout();
         break;
