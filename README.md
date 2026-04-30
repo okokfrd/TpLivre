@@ -7,6 +7,7 @@ Cette base couvre les fonctionnalités minimales :
 - Protection d'une page (dashboard)
 - CRUD Livres (ajouter, lister, modifier, supprimer)
 - Gestion simple des rôles (admin / membre)
+- Système d'avis et notes (1 à 5)
 
 ## Arborescence
 
@@ -15,18 +16,23 @@ TpLivre/
 ├── app/
 │   ├── Controllers/
 │   │   ├── AuthController.php
-│   │   └── HomeController.php
+│   │   ├── AvisController.php
+│   │   ├── HomeController.php
+│   │   └── LivreController.php
 │   ├── Core/
 │   │   ├── Auth.php
 │   │   ├── Database.php
 │   │   └── View.php
 │   ├── Models/
+│   │   ├── Avis.php
 │   │   ├── Livre.php
 │   │   └── User.php
 │   └── Views/
 │       ├── auth/
 │       │   ├── login.php
 │       │   └── register.php
+│       ├── avis/
+│       │   └── index.php
 │       ├── home/
 │       │   └── dashboard.php
 │       └── livres/
@@ -66,3 +72,8 @@ TpLivre/
 - Le dashboard affiche le rôle de l'utilisateur connecté.
 - `membre` : gère uniquement ses propres livres.
 - `admin` : voit tous les livres et peut supprimer n'importe quel livre.
+
+## Avis et notes
+- Un utilisateur peut laisser un seul avis par livre (contrainte unique BDD + logique applicative).
+- Un avis contient une note (1 à 5) et un commentaire.
+- Sur la page livres, cliquer sur `Avis` pour consulter/ajouter/modifier son avis.

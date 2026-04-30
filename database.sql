@@ -19,3 +19,15 @@ CREATE TABLE IF NOT EXISTS livres (
     user_id INT UNSIGNED NOT NULL,
     CONSTRAINT fk_livres_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
+
+CREATE TABLE IF NOT EXISTS avis (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    note INT NOT NULL,
+    commentaire TEXT NULL,
+    user_id INT UNSIGNED NOT NULL,
+    livre_id INT UNSIGNED NOT NULL,
+    CONSTRAINT fk_avis_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    CONSTRAINT fk_avis_livre FOREIGN KEY (livre_id) REFERENCES livres(id) ON DELETE CASCADE,
+    CONSTRAINT uc_avis_user_livre UNIQUE (user_id, livre_id),
+    CONSTRAINT ck_avis_note CHECK (note >= 1 AND note <= 5)
+);

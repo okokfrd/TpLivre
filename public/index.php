@@ -5,7 +5,9 @@ declare(strict_types=1);
 use App\Controllers\AuthController;
 use App\Controllers\HomeController;
 use App\Controllers\LivreController;
+use App\Controllers\AvisController;
 use App\Core\Database;
+use App\Models\Avis;
 use App\Models\Livre;
 use App\Models\User;
 
@@ -32,6 +34,8 @@ $authController = new AuthController($userModel);
 $homeController = new HomeController();
 $livreModel = new Livre($pdo);
 $livreController = new LivreController($livreModel);
+$avisModel = new Avis($pdo);
+$avisController = new AvisController($avisModel, $livreModel);
 
 $action = $_GET['action'] ?? 'login';
 
@@ -96,6 +100,19 @@ switch ($action) {
     case 'livresDelete':
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $livreController->delete();
+            break;
+        }
+        header('Location: index.php?action=livres');
+        break;
+
+
+    case 'avis':
+        $avisController->showByLivre();
+        break;
+
+    case 'avisSave':
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $avisController->save();
             break;
         }
         header('Location: index.php?action=livres');

@@ -36,7 +36,8 @@
                         <td><?= htmlspecialchars($livre['date_debut']) ?></td>
                         <td><?= htmlspecialchars($livre['date_fin']) ?></td>
                         <td>
-                            <a href="index.php?action=livresEdit&id=<?= (int) $livre['id'] ?>">Modifier</a>
+                            <a href="index.php?action=livresEdit&id=<?= (int) $livre['id'] ?>">Modifier</a> |
+                            <a href="index.php?action=avis&livre_id=<?= (int) $livre['id'] ?>">Avis</a>
 
                             <form method="post" action="index.php?action=livresDelete" style="display:inline;" onsubmit="return confirm('Supprimer ce livre ?');">
                                 <input type="hidden" name="id" value="<?= (int) $livre['id'] ?>">
