@@ -107,9 +107,9 @@ TpLivre/
 - Aucun framework CSS utilisé (pas Bootstrap).
 
 ## Rôles et accès
-- `admin` : tout (livres, documents, avis, sessions, progression).
-- `moderateur` : gérer les avis + sessions.
-- `membre` : consulter + avis + progression.
+- `admin` : peut tout gérer.
+- `moderateur` : peut créer/modifier les livres, uploader des documents, créer des sessions et modérer les avis.
+- `membre` : consulte les livres, gère son avis, télécharge les documents et met à jour sa progression personnelle.
 - En cas d'action interdite : affichage d'une page 403 simple.
 
 ## Documents PDF

@@ -31,13 +31,13 @@ class LivreController
 
     public function createForm(): void
     {
-        Auth::requireRole(['admin']);
+        Auth::requireRole(['admin', 'moderateur']);
         View::render('livres/create');
     }
 
     public function store(): void
     {
-        Auth::requireRole(['admin']);
+        Auth::requireRole(['admin', 'moderateur']);
 
         $data = $this->getFormData();
         if ($data === false) {
@@ -53,11 +53,11 @@ class LivreController
 
     public function editForm(): void
     {
-        Auth::requireRole(['admin']);
+        Auth::requireRole(['admin', 'moderateur']);
 
         $id = (int) ($_GET['id'] ?? 0);
         $userId = (int) $_SESSION['user']['id'];
-        $livre = $this->livreModel->findByIdAndUserId($id, $userId);
+        $livre = $this->livreModel->findById($id);
 
         if (!$livre) {
             Auth::forbidden();
@@ -68,12 +68,12 @@ class LivreController
 
     public function update(): void
     {
-        Auth::requireRole(['admin']);
+        Auth::requireRole(['admin', 'moderateur']);
 
         $id = (int) ($_POST['id'] ?? 0);
         $userId = (int) $_SESSION['user']['id'];
 
-        if (!$this->livreModel->findByIdAndUserId($id, $userId)) {
+        if (!$this->livreModel->findById($id)) {
             Auth::forbidden();
         }
 

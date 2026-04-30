@@ -16,16 +16,12 @@ class ProgressionController
 
     public function save(): void
     {
-        Auth::requireRole(['membre', 'admin']);
+        Auth::requireRole(['membre', 'moderateur', 'admin']);
 
         $livreId = (int) ($_POST['livre_id'] ?? 0);
         $pourcentage = (int) ($_POST['pourcentage'] ?? -1);
         $userId = (int) $_SESSION['user']['id'];
-        $role = $_SESSION['user']['role'] ?? 'membre';
-
-        $livre = $role === 'admin'
-            ? $this->livreModel->findById($livreId)
-            : $this->livreModel->findByIdAndUserId($livreId, $userId);
+        $livre = $this->livreModel->findById($livreId);
 
         if (!$livre || $pourcentage < 0 || $pourcentage > 100) {
             Auth::forbidden();
