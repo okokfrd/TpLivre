@@ -9,6 +9,7 @@ Cette base couvre les fonctionnalités minimales :
 - Gestion simple des rôles (admin / membre)
 - Système d'avis et notes (1 à 5)
 - Gestion de la progression de lecture (0 à 100)
+- Dashboard amélioré avec statistiques simples
 
 ## Arborescence
 
@@ -85,3 +86,9 @@ TpLivre/
 - L'utilisateur peut saisir un pourcentage de progression (0 à 100) pour chaque livre.
 - La progression est affichée directement dans la liste des livres.
 - Une seule ligne de progression par utilisateur et par livre (mise à jour si elle existe déjà).
+
+## Dashboard (statistiques simples)
+- Nombre de livres lus (progression = 100).
+- Nombre de livres en cours (progression entre 1 et 99).
+- Moyenne des notes données par l'utilisateur.
+- Progression moyenne de l'utilisateur.

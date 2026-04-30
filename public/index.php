@@ -12,6 +12,7 @@ use App\Models\Avis;
 use App\Models\Livre;
 use App\Models\Progression;
 use App\Models\User;
+use App\Models\Dashboard;
 
 session_start();
 
@@ -33,7 +34,8 @@ $pdo = Database::getConnection($config['db']);
 
 $userModel = new User($pdo);
 $authController = new AuthController($userModel);
-$homeController = new HomeController();
+$dashboardModel = new Dashboard($pdo);
+$homeController = new HomeController($dashboardModel);
 $livreModel = new Livre($pdo);
 $progressionModel = new Progression($pdo);
 $livreController = new LivreController($livreModel, $progressionModel);
