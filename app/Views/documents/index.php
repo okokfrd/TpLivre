@@ -33,13 +33,13 @@
             <table>
                 <tr>
                     <th>Nom</th>
-                    <th>Taille</th>
+                    <th>Date</th>
                     <th>Action</th>
                 </tr>
                 <?php foreach ($documents as $doc): ?>
                     <tr>
-                        <td><?= htmlspecialchars($doc['nom_fichier']) ?></td>
-                        <td><?= number_format(((int) $doc['taille']) / 1024, 1, ',', ' ') ?> Ko</td>
+                        <td><?= htmlspecialchars($doc['filename']) ?></td>
+                        <td><?= htmlspecialchars($doc['created_at']) ?></td>
                         <td><a class="btn" href="index.php?action=documentDownload&id=<?= (int) $doc['id'] ?>">Télécharger</a></td>
                     </tr>
                 <?php endforeach; ?>

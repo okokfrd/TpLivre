@@ -112,6 +112,6 @@ TpLivre/
 - En cas d'action interdite : affichage d'une page 403 simple.
 
 ## Documents PDF
-- Table `documents` en base (nom, chemin, taille, user_id, livre_id).
-- Upload PDF (max 5 Mo) avec vérification du type MIME.
+- Table `documents` en base (id, livre_id, filename, filepath, uploaded_by, created_at).
+- Upload PDF (max 5 Mo) avec vérification du type MIME + stockage dans `/uploads`.
 - Téléchargement sécurisé via contrôleur (utilisateur connecté obligatoire).

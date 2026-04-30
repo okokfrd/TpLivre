@@ -12,19 +12,18 @@ class Document
     {
     }
 
-    public function create(string $nomFichier, string $chemin, int $taille, int $userId, int $livreId): bool
+    public function create(int $livreId, string $filename, string $filepath, int $uploadedBy): bool
     {
         $stmt = $this->pdo->prepare(
-            'INSERT INTO documents (nom_fichier, chemin, taille, user_id, livre_id)
-             VALUES (:nom_fichier, :chemin, :taille, :user_id, :livre_id)'
+            'INSERT INTO documents (livre_id, filename, filepath, uploaded_by, created_at)
+             VALUES (:livre_id, :filename, :filepath, :uploaded_by, NOW())'
         );
 
         return $stmt->execute([
-            'nom_fichier' => $nomFichier,
-            'chemin' => $chemin,
-            'taille' => $taille,
-            'user_id' => $userId,
             'livre_id' => $livreId,
+            'filename' => $filename,
+            'filepath' => $filepath,
+            'uploaded_by' => $uploadedBy,
         ]);
     }
 

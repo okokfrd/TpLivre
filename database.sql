@@ -45,12 +45,11 @@ CREATE TABLE IF NOT EXISTS progression (
 
 CREATE TABLE IF NOT EXISTS documents (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    nom_fichier VARCHAR(255) NOT NULL,
-    chemin VARCHAR(255) NOT NULL,
-    taille INT UNSIGNED NOT NULL,
-    user_id INT UNSIGNED NOT NULL,
     livre_id INT UNSIGNED NOT NULL,
+    filename VARCHAR(255) NOT NULL,
+    filepath VARCHAR(255) NOT NULL,
+    uploaded_by INT UNSIGNED NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT fk_documents_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-    CONSTRAINT fk_documents_livre FOREIGN KEY (livre_id) REFERENCES livres(id) ON DELETE CASCADE
+    CONSTRAINT fk_documents_livre FOREIGN KEY (livre_id) REFERENCES livres(id) ON DELETE CASCADE,
+    CONSTRAINT fk_documents_user FOREIGN KEY (uploaded_by) REFERENCES users(id) ON DELETE CASCADE
 );

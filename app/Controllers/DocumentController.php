@@ -53,38 +53,44 @@ class DocumentController
 
         $livreId = (int) ($_POST['livre_id'] ?? 0);
         $livre = $this->livreModel->findById($livreId);
+
         if (!$livre || !isset($_FILES['pdf'])) {
             Auth::forbidden();
         }
 
         $file = $_FILES['pdf'];
+
         if ($file['error'] !== UPLOAD_ERR_OK) {
             $this->renderWithError($livreId, 'Erreur lors de l\'upload.');
             return;
         }
 
-        if ($file['size'] > self::MAX_FILE_SIZE) {
+        if ((int) $file['size'] > self::MAX_FILE_SIZE) {
             $this->renderWithError($livreId, 'Fichier trop volumineux (max 5 Mo).');
             return;
         }
 
         $mime = mime_content_type($file['tmp_name']);
         if ($mime !== 'application/pdf') {
-            $this->renderWithError($livreId, 'Seuls les fichiers PDF sont autorisés.');
+            $this->renderWithError($livreId, 'Le fichier doit être un PDF.');
             return;
         }
 
         $safeName = preg_replace('/[^a-zA-Z0-9._-]/', '_', basename($file['name']));
         $finalName = time() . '_' . $safeName;
-        $targetDir = dirname(__DIR__, 2) . '/storage/documents/';
-        $targetPath = $targetDir . $finalName;
+        $uploadDir = dirname(__DIR__, 2) . '/uploads/';
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0777, true);
+        }
 
-        if (!move_uploaded_file($file['tmp_name'], $targetPath)) {
+        $absolutePath = $uploadDir . $finalName;
+
+        if (!move_uploaded_file($file['tmp_name'], $absolutePath)) {
             $this->renderWithError($livreId, 'Impossible d\'enregistrer le fichier.');
             return;
         }
 
-        $this->documentModel->create($safeName, 'storage/documents/' . $finalName, (int) $file['size'], (int) $_SESSION['user']['id'], $livreId);
+        $this->documentModel->create($livreId, $safeName, 'uploads/' . $finalName, (int) $_SESSION['user']['id']);
 
         header('Location: index.php?action=documents&livre_id=' . $livreId);
         exit;
@@ -94,11 +100,11 @@ class DocumentController
     {
         Auth::requireLogin();
 
-        $id = (int) ($_GET['id'] ?? 0);
+        $documentId = (int) ($_GET['id'] ?? 0);
         $userId = (int) $_SESSION['user']['id'];
         $role = $_SESSION['user']['role'] ?? 'membre';
 
-        $document = $this->documentModel->findById($id);
+        $document = $this->documentModel->findById($documentId);
         if (!$document) {
             Auth::forbidden();
         }
@@ -111,15 +117,16 @@ class DocumentController
             Auth::forbidden();
         }
 
-        $filePath = dirname(__DIR__, 2) . '/' . $document['chemin'];
-        if (!file_exists($filePath)) {
+        $absolutePath = dirname(__DIR__, 2) . '/' . $document['filepath'];
+
+        if (!file_exists($absolutePath)) {
             Auth::forbidden();
         }
 
         header('Content-Type: application/pdf');
-        header('Content-Disposition: attachment; filename="' . basename($document['nom_fichier']) . '"');
-        header('Content-Length: ' . filesize($filePath));
-        readfile($filePath);
+        header('Content-Disposition: attachment; filename="' . basename($document['filename']) . '"');
+        header('Content-Length: ' . filesize($absolutePath));
+        readfile($absolutePath);
         exit;
     }
 
@@ -127,6 +134,7 @@ class DocumentController
     {
         $livre = $this->livreModel->findById($livreId);
         $documents = $this->documentModel->getByLivreId($livreId);
+
         View::render('documents/index', [
             'livre' => $livre,
             'documents' => $documents,
