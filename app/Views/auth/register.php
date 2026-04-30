@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Inscription</title>
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+    <div class="container auth-container">
     <h1>Inscription</h1>
 
     <?php if (!empty($error)): ?>
-        <p style="color:red;"><?= htmlspecialchars($error) ?></p>
+        <p class="error"><?= htmlspecialchars($error) ?></p>
     <?php endif; ?>
 
     <form method="post" action="index.php?action=registerPost">
@@ -21,9 +23,10 @@
         <label>Mot de passe :</label><br>
         <input type="password" name="password" required><br><br>
 
-        <button type="submit">Créer le compte</button>
+        <button type="submit" class="btn">Créer le compte</button>
     </form>
 
     <p>Déjà un compte ? <a href="index.php?action=login">Connexion</a></p>
+    </div>
 </body>
 </html>

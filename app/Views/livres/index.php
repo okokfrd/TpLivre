@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Mes livres</title>
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+    <div class="container">
     <h1><?= ($role ?? "membre") === "admin" ? "Tous les livres (admin)" : "Mes livres" ?></h1>
 
-    <p>
-        <a href="index.php?action=dashboard">Retour dashboard</a> |
-        <a href="index.php?action=livresCreate">Ajouter un livre</a> |
-        <a href="index.php?action=logout">Déconnexion</a>
-    </p>
+    <div class="menu">
+        <a class="btn btn-secondary" href="index.php?action=dashboard">Dashboard</a>
+        <a class="btn" href="index.php?action=livresCreate">Ajouter un livre</a>
+        <a class="btn btn-secondary" href="index.php?action=logout">Déconnexion</a>
+    </div>
 
     <?php if (empty($livres)): ?>
         <p>Aucun livre pour le moment.</p>
@@ -39,8 +41,8 @@
                         <td>
                             <form method="post" action="index.php?action=progressionSave" style="display:inline;">
                                 <input type="hidden" name="livre_id" value="<?= (int) $livre['id'] ?>">
-                                <input type="number" name="pourcentage" min="0" max="100" value="<?= (int) ($progressions[(int) $livre['id']] ?? 0) ?>" style="width:70px;"> %
-                                <button type="submit">OK</button>
+                                <input type="number" name="pourcentage" min="0" max="100" value="<?= (int) ($progressions[(int) $livre['id']] ?? 0) ?>" style="width:80px; display:inline-block;"> %
+                                <button type="submit" class="btn">OK</button>
                             </form>
                         </td>
                         <td>
@@ -49,7 +51,7 @@
 
                             <form method="post" action="index.php?action=livresDelete" style="display:inline;" onsubmit="return confirm('Supprimer ce livre ?');">
                                 <input type="hidden" name="id" value="<?= (int) $livre['id'] ?>">
-                                <button type="submit">Supprimer</button>
+                                <button type="submit" class="btn">Supprimer</button>
                             </form>
                         </td>
                     </tr>
@@ -57,5 +59,6 @@
             </tbody>
         </table>
     <?php endif; ?>
+    </div>
 </body>
 </html>

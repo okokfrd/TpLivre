@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Avis du livre</title>
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+    <div class="container">
     <h1>Avis - <?= htmlspecialchars($livre['titre']) ?></h1>
 
-    <p><a href="index.php?action=livres">Retour aux livres</a></p>
+    <p><a class="btn btn-secondary" href="index.php?action=livres">Retour aux livres</a></p>
 
     <?php if (!empty($error)): ?>
-        <p style="color:red;"><?= htmlspecialchars($error) ?></p>
+        <p class="error"><?= htmlspecialchars($error) ?></p>
     <?php endif; ?>
 
     <h2>Laisser / modifier mon avis</h2>
@@ -23,7 +25,7 @@
         <label>Commentaire :</label><br>
         <textarea name="commentaire" rows="5" cols="50"><?= htmlspecialchars($monAvis['commentaire'] ?? '') ?></textarea><br><br>
 
-        <button type="submit"><?= $monAvis ? 'Modifier mon avis' : 'Ajouter mon avis' ?></button>
+        <button type="submit" class="btn"><?= $monAvis ? 'Modifier mon avis' : 'Ajouter mon avis' ?></button>
     </form>
 
     <h2>Liste des avis</h2>
@@ -41,5 +43,6 @@
             <?php endforeach; ?>
         </ul>
     <?php endif; ?>
+    </div>
 </body>
 </html>

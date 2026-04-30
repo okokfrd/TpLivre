@@ -10,6 +10,7 @@ Cette base couvre les fonctionnalités minimales :
 - Système d'avis et notes (1 à 5)
 - Gestion de la progression de lecture (0 à 100)
 - Dashboard amélioré avec statistiques simples
+- Interface simple (CSS sans framework)
 
 ## Arborescence
 
@@ -92,3 +93,8 @@ TpLivre/
 - Nombre de livres en cours (progression entre 1 et 99).
 - Moyenne des notes données par l'utilisateur.
 - Progression moyenne de l'utilisateur.
+
+## Interface (CSS simple)
+- Feuille de style unique : `public/assets/css/style.css`.
+- Formulaires centrés, boutons stylisés et menu simple sur le dashboard.
+- Aucun framework CSS utilisé (pas Bootstrap).

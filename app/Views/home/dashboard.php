@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Dashboard</title>
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+    <div class="container">
     <h1>Dashboard</h1>
     <p>Bienvenue <?= htmlspecialchars($user['nom']) ?> (<?= htmlspecialchars($user['role']) ?>)</p>
 
@@ -16,8 +18,10 @@
         <li>Progression moyenne : <strong><?= number_format((float) $stats['moyenne_progression'], 2, ',', ' ') ?></strong> %</li>
     </ul>
 
-    <p><a href="index.php?action=livres">Gérer mes livres</a></p>
-
-    <a href="index.php?action=logout">Se déconnecter</a>
+    <div class="menu">
+        <a class="btn" href="index.php?action=livres">Mes livres</a>
+        <a class="btn btn-secondary" href="index.php?action=logout">Se déconnecter</a>
+    </div>
+    </div>
 </body>
 </html>
