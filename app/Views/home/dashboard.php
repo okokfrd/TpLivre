@@ -20,6 +20,7 @@
 
     <div class="menu">
         <a class="btn" href="index.php?action=livres">Mes livres</a>
+        <a class="btn" href="index.php?action=sessions">Sessions</a>
         <a class="btn btn-secondary" href="index.php?action=logout">Se déconnecter</a>
     </div>
     </div>

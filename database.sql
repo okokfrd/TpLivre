@@ -53,3 +53,24 @@ CREATE TABLE IF NOT EXISTS documents (
     CONSTRAINT fk_documents_livre FOREIGN KEY (livre_id) REFERENCES livres(id) ON DELETE CASCADE,
     CONSTRAINT fk_documents_user FOREIGN KEY (uploaded_by) REFERENCES users(id) ON DELETE CASCADE
 );
+
+CREATE TABLE IF NOT EXISTS sessions (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    livre_id INT UNSIGNED NOT NULL,
+    titre VARCHAR(255) NOT NULL,
+    date_heure DATETIME NOT NULL,
+    lieu VARCHAR(255) NOT NULL,
+    description TEXT NULL,
+    created_by INT UNSIGNED NOT NULL,
+    CONSTRAINT fk_sessions_livre FOREIGN KEY (livre_id) REFERENCES livres(id) ON DELETE CASCADE,
+    CONSTRAINT fk_sessions_user FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS session_attendance (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    session_id INT UNSIGNED NOT NULL,
+    user_id INT UNSIGNED NOT NULL,
+    CONSTRAINT uc_session_user UNIQUE (session_id, user_id),
+    CONSTRAINT fk_att_session FOREIGN KEY (session_id) REFERENCES sessions(id) ON DELETE CASCADE,
+    CONSTRAINT fk_att_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);

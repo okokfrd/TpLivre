@@ -11,6 +11,7 @@ Cette base couvre les fonctionnalités minimales :
 - Gestion de la progression de lecture (0 à 100)
 - Dashboard amélioré avec statistiques simples
 - Interface simple (CSS sans framework)
+- Sessions (rencontres / lives)
 
 ## Arborescence
 
@@ -115,3 +116,9 @@ TpLivre/
 - Table `documents` en base (id, livre_id, filename, filepath, uploaded_by, created_at).
 - Upload PDF (max 5 Mo) avec vérification du type MIME + stockage dans `/uploads`.
 - Téléchargement sécurisé via contrôleur (utilisateur connecté obligatoire).
+
+## Sessions (rencontres / lives)
+- Création d'une session liée à un livre (`titre`, `date_heure`, `lieu`, `description`).
+- Affichage de la liste des sessions avec nombre de participants.
+- Inscription d'un utilisateur à une session (1 inscription max par session).
+- Tables SQL : `sessions` et `session_attendance`.

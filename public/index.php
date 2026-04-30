@@ -8,6 +8,7 @@ use App\Controllers\LivreController;
 use App\Controllers\ProgressionController;
 use App\Controllers\AvisController;
 use App\Controllers\DocumentController;
+use App\Controllers\SessionController;
 use App\Core\Auth;
 use App\Core\Database;
 use App\Models\Avis;
@@ -16,6 +17,8 @@ use App\Models\Livre;
 use App\Models\Progression;
 use App\Models\User;
 use App\Models\Dashboard;
+use App\Models\ReadingSession;
+use App\Models\SessionAttendance;
 
 session_start();
 
@@ -47,6 +50,9 @@ $avisModel = new Avis($pdo);
 $avisController = new AvisController($avisModel, $livreModel);
 $documentModel = new Document($pdo);
 $documentController = new DocumentController($documentModel, $livreModel);
+$sessionModel = new ReadingSession($pdo);
+$sessionAttendanceModel = new SessionAttendance($pdo);
+$sessionController = new SessionController($sessionModel, $sessionAttendanceModel, $livreModel);
 
 $action = $_GET['action'] ?? 'login';
 
@@ -121,6 +127,31 @@ switch ($action) {
 
 
 
+
+
+    case 'sessions':
+        $sessionController->index();
+        break;
+
+    case 'sessionCreate':
+        $sessionController->createForm();
+        break;
+
+    case 'sessionStore':
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $sessionController->store();
+            break;
+        }
+        Auth::forbidden();
+        break;
+
+    case 'sessionRegister':
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $sessionController->register();
+            break;
+        }
+        Auth::forbidden();
+        break;
     case 'documents':
         $documentController->index();
         break;
