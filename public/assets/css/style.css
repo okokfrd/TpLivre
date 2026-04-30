@@ -95,3 +95,29 @@ th, td {
     border-radius: 6px;
     margin-bottom: 12px;
 }
+
+
+.top-nav {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #dbe3ef;
+}
+
+.btn, button {
+    font-weight: bold;
+}
+
+.btn:hover, button:hover {
+    opacity: 0.9;
+}
+
+thead th {
+    background: #eef2ff;
+    text-align: left;
+}
+
+tbody tr:nth-child(even) {
+    background: #f8fafc;
+}

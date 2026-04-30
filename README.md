@@ -122,3 +122,8 @@ TpLivre/
 - Affichage de la liste des sessions avec nombre de participants.
 - Inscription d'un utilisateur à une session (1 inscription max par session).
 - Tables SQL : `sessions` et `session_attendance`.
+
+## Design léger
+- Menu simple sur les pages principales : dashboard, livres, logout.
+- Tableaux plus lisibles (en-tête coloré + lignes alternées).
+- Boutons plus visibles avec styles simples.

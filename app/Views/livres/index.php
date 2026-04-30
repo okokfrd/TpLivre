@@ -7,6 +7,12 @@
 </head>
 <body>
     <div class="container">
+        <div class="top-nav">
+            <a class="btn btn-secondary" href="index.php?action=dashboard">Dashboard</a>
+            <a class="btn" href="index.php?action=livres">Livres</a>
+            <a class="btn btn-danger" href="index.php?action=logout">Logout</a>
+        </div>
+
     <h1><?= ($role ?? "membre") === "admin" ? "Tous les livres (admin)" : "Mes livres" ?></h1>
 
     <div class="menu">
@@ -18,7 +24,7 @@
     <?php if (empty($livres)): ?>
         <p>Aucun livre pour le moment.</p>
     <?php else: ?>
-        <table border="1" cellpadding="8">
+        <table>
             <thead>
                 <tr>
                     <th>Titre</th>

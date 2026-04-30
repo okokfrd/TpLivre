@@ -7,6 +7,12 @@
 </head>
 <body>
     <div class="container">
+        <div class="top-nav">
+            <a class="btn btn-secondary" href="index.php?action=dashboard">Dashboard</a>
+            <a class="btn" href="index.php?action=livres">Livres</a>
+            <a class="btn btn-danger" href="index.php?action=logout">Logout</a>
+        </div>
+
         <h1>Sessions (rencontres / lives)</h1>
 
         <div class="menu">
