@@ -19,6 +19,21 @@ class Auth
         }
     }
 
+    public static function hasRole(string $role): bool
+    {
+        return isset($_SESSION['user']['role']) && $_SESSION['user']['role'] === $role;
+    }
+
+    public static function requireRole(array $roles): void
+    {
+        self::requireLogin();
+
+        $currentRole = $_SESSION['user']['role'] ?? '';
+        if (!in_array($currentRole, $roles, true)) {
+            self::forbidden();
+        }
+    }
+
     public static function forbidden(): void
     {
         http_response_code(403);

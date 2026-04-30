@@ -17,7 +17,7 @@ class AvisController
 
     public function showByLivre(): void
     {
-        Auth::requireLogin();
+        Auth::requireRole(['membre', 'moderateur', 'admin']);
 
         $livreId = (int) ($_GET['livre_id'] ?? 0);
         $userId = (int) $_SESSION['user']['id'];
@@ -43,7 +43,7 @@ class AvisController
 
     public function save(): void
     {
-        Auth::requireLogin();
+        Auth::requireRole(['membre', 'moderateur', 'admin']);
 
         $livreId = (int) ($_POST['livre_id'] ?? 0);
         $note = (int) ($_POST['note'] ?? 0);

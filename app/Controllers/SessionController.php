@@ -36,23 +36,16 @@ class SessionController
 
     public function createForm(): void
     {
-        Auth::requireLogin();
+        Auth::requireRole(['moderateur', 'admin']);
 
-        $userId = (int) $_SESSION['user']['id'];
-        $role = $_SESSION['user']['role'] ?? 'membre';
-
-        if ($role === 'admin' || $role === 'moderateur') {
-            $livres = $this->livreModel->getAll();
-        } else {
-            $livres = $this->livreModel->getAllByUserId($userId);
-        }
+        $livres = $this->livreModel->getAll();
 
         View::render('sessions/create', ['livres' => $livres]);
     }
 
     public function store(): void
     {
-        Auth::requireLogin();
+        Auth::requireRole(['moderateur', 'admin']);
 
         $livreId = (int) ($_POST['livre_id'] ?? 0);
         $titre = trim($_POST['titre'] ?? '');

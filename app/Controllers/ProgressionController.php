@@ -16,7 +16,7 @@ class ProgressionController
 
     public function save(): void
     {
-        Auth::requireLogin();
+        Auth::requireRole(['membre', 'admin']);
 
         $livreId = (int) ($_POST['livre_id'] ?? 0);
         $pourcentage = (int) ($_POST['pourcentage'] ?? -1);

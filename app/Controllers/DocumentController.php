@@ -47,7 +47,7 @@ class DocumentController
         Auth::requireLogin();
         $role = $_SESSION['user']['role'] ?? 'membre';
 
-        if (!in_array($role, ['admin', 'moderateur'], true)) {
+        if (!in_array($role, ['admin'], true)) {
             Auth::forbidden();
         }
 

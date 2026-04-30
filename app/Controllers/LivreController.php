@@ -21,11 +21,7 @@ class LivreController
         $userId = (int) $_SESSION['user']['id'];
         $role = $_SESSION['user']['role'] ?? 'membre';
 
-        if ($role === 'admin') {
-            $livres = $this->livreModel->getAll();
-        } else {
-            $livres = $this->livreModel->getAllByUserId($userId);
-        }
+        $livres = $this->livreModel->getAll();
 
         $livreIds = array_map(fn (array $livre): int => (int) $livre['id'], $livres);
         $progressions = $this->progressionModel->getMapByUserAndLivres($userId, $livreIds);
@@ -35,13 +31,13 @@ class LivreController
 
     public function createForm(): void
     {
-        Auth::requireLogin();
+        Auth::requireRole(['admin']);
         View::render('livres/create');
     }
 
     public function store(): void
     {
-        Auth::requireLogin();
+        Auth::requireRole(['admin']);
 
         $data = $this->getFormData();
         if ($data === false) {
@@ -57,7 +53,7 @@ class LivreController
 
     public function editForm(): void
     {
-        Auth::requireLogin();
+        Auth::requireRole(['admin']);
 
         $id = (int) ($_GET['id'] ?? 0);
         $userId = (int) $_SESSION['user']['id'];
@@ -72,7 +68,7 @@ class LivreController
 
     public function update(): void
     {
-        Auth::requireLogin();
+        Auth::requireRole(['admin']);
 
         $id = (int) ($_POST['id'] ?? 0);
         $userId = (int) $_SESSION['user']['id'];
@@ -94,7 +90,7 @@ class LivreController
 
     public function delete(): void
     {
-        Auth::requireLogin();
+        Auth::requireRole(['admin']);
 
         $id = (int) ($_POST['id'] ?? 0);
         $userId = (int) $_SESSION['user']['id'];
