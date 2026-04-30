@@ -7,10 +7,11 @@ namespace App\Controllers;
 use App\Core\Auth;
 use App\Core\View;
 use App\Models\Livre;
+use App\Models\Progression;
 
 class LivreController
 {
-    public function __construct(private Livre $livreModel)
+    public function __construct(private Livre $livreModel, private Progression $progressionModel)
     {
     }
 
@@ -26,7 +27,10 @@ class LivreController
             $livres = $this->livreModel->getAllByUserId($userId);
         }
 
-        View::render('livres/index', ['livres' => $livres, 'role' => $role]);
+        $livreIds = array_map(fn (array $livre): int => (int) $livre['id'], $livres);
+        $progressions = $this->progressionModel->getMapByUserAndLivres($userId, $livreIds);
+
+        View::render('livres/index', ['livres' => $livres, 'role' => $role, 'progressions' => $progressions]);
     }
 
     public function createForm(): void

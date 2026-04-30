@@ -24,6 +24,7 @@
                     <th>Description</th>
                     <th>Date début</th>
                     <th>Date fin</th>
+                    <th>Progression</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -35,6 +36,13 @@
                         <td><?= nl2br(htmlspecialchars($livre['description'])) ?></td>
                         <td><?= htmlspecialchars($livre['date_debut']) ?></td>
                         <td><?= htmlspecialchars($livre['date_fin']) ?></td>
+                        <td>
+                            <form method="post" action="index.php?action=progressionSave" style="display:inline;">
+                                <input type="hidden" name="livre_id" value="<?= (int) $livre['id'] ?>">
+                                <input type="number" name="pourcentage" min="0" max="100" value="<?= (int) ($progressions[(int) $livre['id']] ?? 0) ?>" style="width:70px;"> %
+                                <button type="submit">OK</button>
+                            </form>
+                        </td>
                         <td>
                             <a href="index.php?action=livresEdit&id=<?= (int) $livre['id'] ?>">Modifier</a> |
                             <a href="index.php?action=avis&livre_id=<?= (int) $livre['id'] ?>">Avis</a>

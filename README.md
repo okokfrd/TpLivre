@@ -8,6 +8,7 @@ Cette base couvre les fonctionnalités minimales :
 - CRUD Livres (ajouter, lister, modifier, supprimer)
 - Gestion simple des rôles (admin / membre)
 - Système d'avis et notes (1 à 5)
+- Gestion de la progression de lecture (0 à 100)
 
 ## Arborescence
 
@@ -18,7 +19,8 @@ TpLivre/
 │   │   ├── AuthController.php
 │   │   ├── AvisController.php
 │   │   ├── HomeController.php
-│   │   └── LivreController.php
+│   │   ├── LivreController.php
+│   │   └── ProgressionController.php
 │   ├── Core/
 │   │   ├── Auth.php
 │   │   ├── Database.php
@@ -26,6 +28,7 @@ TpLivre/
 │   ├── Models/
 │   │   ├── Avis.php
 │   │   ├── Livre.php
+│   │   ├── Progression.php
 │   │   └── User.php
 │   └── Views/
 │       ├── auth/
@@ -77,3 +80,8 @@ TpLivre/
 - Un utilisateur peut laisser un seul avis par livre (contrainte unique BDD + logique applicative).
 - Un avis contient une note (1 à 5) et un commentaire.
 - Sur la page livres, cliquer sur `Avis` pour consulter/ajouter/modifier son avis.
+
+## Progression de lecture
+- L'utilisateur peut saisir un pourcentage de progression (0 à 100) pour chaque livre.
+- La progression est affichée directement dans la liste des livres.
+- Une seule ligne de progression par utilisateur et par livre (mise à jour si elle existe déjà).

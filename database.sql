@@ -31,3 +31,14 @@ CREATE TABLE IF NOT EXISTS avis (
     CONSTRAINT uc_avis_user_livre UNIQUE (user_id, livre_id),
     CONSTRAINT ck_avis_note CHECK (note >= 1 AND note <= 5)
 );
+
+CREATE TABLE IF NOT EXISTS progression (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    pourcentage INT NOT NULL,
+    user_id INT UNSIGNED NOT NULL,
+    livre_id INT UNSIGNED NOT NULL,
+    CONSTRAINT fk_progression_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    CONSTRAINT fk_progression_livre FOREIGN KEY (livre_id) REFERENCES livres(id) ON DELETE CASCADE,
+    CONSTRAINT uc_progression_user_livre UNIQUE (user_id, livre_id),
+    CONSTRAINT ck_progression_pourcentage CHECK (pourcentage >= 0 AND pourcentage <= 100)
+);

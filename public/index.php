@@ -5,10 +5,12 @@ declare(strict_types=1);
 use App\Controllers\AuthController;
 use App\Controllers\HomeController;
 use App\Controllers\LivreController;
+use App\Controllers\ProgressionController;
 use App\Controllers\AvisController;
 use App\Core\Database;
 use App\Models\Avis;
 use App\Models\Livre;
+use App\Models\Progression;
 use App\Models\User;
 
 session_start();
@@ -33,7 +35,9 @@ $userModel = new User($pdo);
 $authController = new AuthController($userModel);
 $homeController = new HomeController();
 $livreModel = new Livre($pdo);
-$livreController = new LivreController($livreModel);
+$progressionModel = new Progression($pdo);
+$livreController = new LivreController($livreModel, $progressionModel);
+$progressionController = new ProgressionController($progressionModel, $livreModel);
 $avisModel = new Avis($pdo);
 $avisController = new AvisController($avisModel, $livreModel);
 
@@ -106,6 +110,15 @@ switch ($action) {
         break;
 
 
+
+
+    case 'progressionSave':
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $progressionController->save();
+            break;
+        }
+        header('Location: index.php?action=livres');
+        break;
     case 'avis':
         $avisController->showByLivre();
         break;
